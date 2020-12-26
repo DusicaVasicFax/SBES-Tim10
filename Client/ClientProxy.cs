@@ -8,26 +8,62 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    public class ClientProxy : ChannelFactory<ISecurityService>, ISecurityService, IDisposable
+    public class ClientProxy : ChannelFactory<IFileManagerService>, IFileManagerService, IDisposable
     {
-        ISecurityService factory;
+        IFileManagerService factory;
 
-        public ClientProxy(NetTcpBinding binding, string address) : base(binding, address)
+        public ClientProxy(NetTcpBinding binding, EndpointAddress address) : base(binding, address)
         {
             factory = this.CreateChannel();
         }
-
-        public void AddUser(string username, string password)
+       
+        public void AddFile(string fileName, string text)
         {
-
             try
             {
-                factory.AddUser(username, password);
+                factory.AddFile(fileName, text);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error: {0}", e.Message);
+                Console.WriteLine(e.Message);
             }
         }
+
+        public void DeleteFile(string fileName)
+        {
+            try
+            {
+                factory.DeleteFile(fileName);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void EditFile(string fileName, string text)
+        {
+            try
+            {
+                factory.EditFile(fileName, text);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (factory != null)
+            {
+                factory = null;
+            }
+
+            this.Close();
+        }
+
+
+
     }
 }

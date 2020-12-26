@@ -12,11 +12,14 @@ namespace Client
 		static void Main(string[] args)
 		{
 			NetTcpBinding binding = new NetTcpBinding();
-			string address = "net.tcp://localhost:9999/SecurityService";
- 
-			using (ClientProxy proxy = new ClientProxy(binding, address))
-			{
+			string address = "net.tcp://localhost:9999/FileManager";
 
+
+			using (ClientProxy proxy = new ClientProxy(binding, new EndpointAddress(new Uri(address))))
+			{
+				proxy.AddFile("file1.txt","First file");
+				proxy.EditFile("file1.txt","First file again");
+				//proxy.DeleteFile("file1.txt");
 			}
 
 			Console.ReadLine();

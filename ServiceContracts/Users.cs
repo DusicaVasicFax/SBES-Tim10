@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ServiceContracts
 {
-	public class User
-	{		
+    public class User
+	{
 		string username = string.Empty;
 		string password = string.Empty;
 
@@ -15,7 +15,7 @@ namespace ServiceContracts
 		{
 			this.username = _username;
 			this.password = _password;
-		}		
+		}
 
 		public string Username
 		{
@@ -28,6 +28,6 @@ namespace ServiceContracts
 			get { return password; }
 			set { password = value; }
 		}
-       
+
 	}
 }

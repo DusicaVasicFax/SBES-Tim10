@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28306.52
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{0AEF9BDA-C9DF-40B1-81FD-1E282A2C6A31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecurityService", "SecurityService\SecurityService.csproj", "{CEB2E8FF-A68D-4A61-A3AD-A452AFA1BC23}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceContracts", "ServiceContracts\ServiceContracts.csproj", "{51904A43-E6D9-41E9-B2FD-4210EE2124C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManagerService", "FileManagerService\FileManagerService.csproj", "{DF6BB83D-4C38-4ACF-B06C-56953720CD16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,18 @@ Global
 		{51904A43-E6D9-41E9-B2FD-4210EE2124C1}.Release|x64.Build.0 = Release|x64
 		{51904A43-E6D9-41E9-B2FD-4210EE2124C1}.Release|x86.ActiveCfg = Release|x86
 		{51904A43-E6D9-41E9-B2FD-4210EE2124C1}.Release|x86.Build.0 = Release|x86
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Debug|x64.Build.0 = Debug|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Debug|x86.Build.0 = Debug|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Release|x64.ActiveCfg = Release|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Release|x64.Build.0 = Release|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Release|x86.ActiveCfg = Release|Any CPU
+		{DF6BB83D-4C38-4ACF-B06C-56953720CD16}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

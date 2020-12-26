@@ -10,18 +10,22 @@ namespace Client
 {
     public class ClientProxy : ChannelFactory<IFileManagerService>, IFileManagerService, IDisposable
     {
-        IFileManagerService factory;
+        private IFileManagerService factory;
 
         public ClientProxy(NetTcpBinding binding, EndpointAddress address) : base(binding, address)
         {
             factory = this.CreateChannel();
         }
-       
+
         public void AddFile(string fileName, string text)
         {
             try
             {
                 factory.AddFile(fileName, text);
+            }
+            catch (FaultException<FileOperationsException> e)
+            {
+                Console.WriteLine($"Error while trying to add file: {fileName}");
             }
             catch (Exception e)
             {
@@ -35,6 +39,10 @@ namespace Client
             {
                 factory.DeleteFile(fileName);
             }
+            catch (FaultException<FileOperationsException> e)
+            {
+                Console.WriteLine($"Error while trying to delete file: {fileName}");
+            }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -46,6 +54,10 @@ namespace Client
             try
             {
                 factory.EditFile(fileName, text);
+            }
+            catch (FaultException<FileOperationsException> e)
+            {
+                Console.WriteLine($"Error while trying to edit file: {fileName}");
             }
             catch (Exception e)
             {
@@ -62,8 +74,5 @@ namespace Client
 
             this.Close();
         }
-
-
-
     }
 }

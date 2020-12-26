@@ -11,12 +11,15 @@ namespace ServiceContracts
     public interface IFileManagerService
     {
         [OperationContract]
-        void AddFile(string fileName,string text);
+        [FaultContract(typeof(FileOperationsException))]
+        void AddFile(string fileName, string text);
 
         [OperationContract]
+        [FaultContract(typeof(FileOperationsException))]
         void EditFile(string fileName, string text);
 
         [OperationContract]
+        [FaultContract(typeof(FileOperationsException))]
         void DeleteFile(string fileName);
     }
 }

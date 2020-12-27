@@ -1,4 +1,5 @@
 # SBES-Tim10
 sifra:SBES-PROJ
-server:filemanager
+
+server:FIM
 klijent:client

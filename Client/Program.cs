@@ -16,8 +16,8 @@ namespace Client
 
             using (ClientProxy proxy = new ClientProxy(binding, new EndpointAddress(new Uri(address))))
             {
-                proxy.AddFile("file1.txt", "First file");
-                proxy.EditFile("file2.txt", "First file again");
+                proxy.AddFile("file6.txt", "First file");
+                proxy.EditFile("file6.txt", "First file again");
                 //proxy.DeleteFile("file1.txt");
             }
 

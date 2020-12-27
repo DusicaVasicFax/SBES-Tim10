@@ -1,8 +1,8 @@
 # SBES-Tim10
 Create three new users:
-  -client
-  -fim
-  -ips
+* client
+* fim
+* ips
 Password for all three should be: SBES-PROJ
 
 Create two new groups called:

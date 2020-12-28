@@ -12,7 +12,7 @@ namespace Manager
 
     public class DigitalSignature
     {
-        public static byte[] Create(string message, HashAlgorithm hashAlgorithm, X509Certificate2 certificate)
+        public static byte[] Create(string message, HashAlgorithms hashAlgorithm, X509Certificate2 certificate)
         {
             RSACryptoServiceProvider csp = (RSACryptoServiceProvider)certificate.PrivateKey;
 
@@ -36,7 +36,7 @@ namespace Manager
             return csp.SignHash(hash, CryptoConfig.MapNameToOID(hashAlgorithm.ToString()));
         }
 
-        public static bool Verify(string message, HashAlgorithm hashAlgorithm, byte[] signature, X509Certificate2 certificate)
+        public static bool Verify(string message, HashAlgorithms hashAlgorithm, byte[] signature, X509Certificate2 certificate)
         {
             RSACryptoServiceProvider csp = (RSACryptoServiceProvider)certificate.PublicKey.Key;
             UnicodeEncoding encoding = new UnicodeEncoding();

@@ -14,11 +14,11 @@ namespace FileManagerService
         public static string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\Files\\"));
 
         //TODO add dictionary
-        public void AddFile(string fileName, string text)
+        public void AddFile(string fileName, byte[] signature, string text)
         {
             if (!File.Exists(GetFilePath(fileName)))
             {
-                File.WriteAllText(GetFilePath(fileName), text);
+                File.WriteAllText(GetFilePath(fileName), text + '\n' + Convert.ToBase64String(signature)); //TODO change signature to something else
             }
             else
             {
@@ -35,7 +35,7 @@ namespace FileManagerService
                 throw new FaultException<FileOperationsException>(new FileOperationsException("Cannot delete a file that does not exist"));
         }
 
-        public void EditFile(string fileName, string text)
+        public void EditFile(string fileName, byte[] signature, string text)
         {
             if (File.Exists(GetFilePath(fileName)))
             {

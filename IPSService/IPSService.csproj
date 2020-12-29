@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DF6BB83D-4C38-4ACF-B06C-56953720CD16}</ProjectGuid>
+    <ProjectGuid>{F99F5B56-DDD0-4F96-8C06-47CD08C3EB73}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>FileManagerService</RootNamespace>
-    <AssemblyName>FileManagerService</AssemblyName>
+    <RootNamespace>IPSService</RootNamespace>
+    <AssemblyName>IPSService</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,12 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileManager.cs" />
+    <Compile Include="Audit.cs" />
+    <Compile Include="AuditEvents.cs" />
+    <Compile Include="FileManagerProxy.cs" />
+    <Compile Include="IPSService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AuditEventFile.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AuditEventFile.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AuditEventFile.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AuditEventFile.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ServiceContracts\ServiceContracts.csproj">

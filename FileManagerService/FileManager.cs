@@ -6,6 +6,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using System.ServiceModel;
+using System.Security.Permissions;
 
 namespace FileManagerService
 {
@@ -13,8 +14,9 @@ namespace FileManagerService
     {
         public static string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\Files\\"));
 
-        //TODO add dictionary
+        [PrincipalPermission(SecurityAction.Demand, Role = "Managment")]
         public void AddFile(string fileName, byte[] signature, string text)
+
         {
             if (!File.Exists(GetFilePath(fileName)))
             {
@@ -35,7 +37,9 @@ namespace FileManagerService
                 throw new FaultException<FileOperationsException>(new FileOperationsException("Cannot delete a file that does not exist"));
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Managment")]
         public void EditFile(string fileName, byte[] signature, string text)
+
         {
             if (File.Exists(GetFilePath(fileName)))
             {

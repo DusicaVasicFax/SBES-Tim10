@@ -20,8 +20,7 @@ namespace FIM
             X509Certificate2 certificate = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople,
                StoreLocation.LocalMachine, "client_sign");
 
-            var sign = File.ReadLines(path+"file1.txt");
-            
+            var sign = File.ReadLines(path + "file1.txt");
 
             byte[] signature = Convert.FromBase64String(sign.Last());
 
@@ -35,7 +34,6 @@ namespace FIM
                 Console.WriteLine("Invalid signature");
                 Console.ReadLine();
             }
-           
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Client
 
             //this.Credentials.ClientCertificate.Certificate =
             //    CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, cltCertCN);
-            
+
             factory = this.CreateChannel();
         }
 
@@ -61,7 +61,7 @@ namespace Client
         {
             try
             {
-                factory.EditFile(fileName, signature,text);
+                factory.EditFile(fileName, signature, text);
             }
             catch (FaultException<FileOperationsException> e)
             {

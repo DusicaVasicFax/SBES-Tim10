@@ -15,11 +15,12 @@ namespace FileManagerService
         public static string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\Files\\"));
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Managment")]
-        public void AddFile(string fileName, string text)
+        public void AddFile(string fileName, byte[] signature, string text)
+
         {
             if (!File.Exists(GetFilePath(fileName)))
             {
-                File.WriteAllText(GetFilePath(fileName), text);
+                File.WriteAllText(GetFilePath(fileName), text + '\n' + Convert.ToBase64String(signature)); //TODO change signature to something else
             }
             else
             {
@@ -37,7 +38,8 @@ namespace FileManagerService
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Managment")]
-        public void EditFile(string fileName, string text)
+        public void EditFile(string fileName, byte[] signature, string text)
+
         {
             if (File.Exists(GetFilePath(fileName)))
             {

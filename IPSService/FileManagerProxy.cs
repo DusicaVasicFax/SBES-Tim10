@@ -20,7 +20,7 @@ namespace IPSService
                 factory = this.CreateChannel();
             }
 
-            public void AddFile(string fileName, string text)
+            public void AddFile(string fileName, byte[] signature, string text)
             {
                 throw new NotImplementedException();
             }
@@ -37,7 +37,7 @@ namespace IPSService
                 }
             }
 
-            public void EditFile(string fileName, string text)
+            public void EditFile(string fileName, byte[] signature, string text)
             {
                 throw new NotImplementedException();
             }

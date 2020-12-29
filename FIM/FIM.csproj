@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DF6BB83D-4C38-4ACF-B06C-56953720CD16}</ProjectGuid>
+    <ProjectGuid>{0D59BF74-1AE1-468F-A6B7-19B8A102D471}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>FileManagerService</RootNamespace>
-    <AssemblyName>FileManagerService</AssemblyName>
+    <RootNamespace>FIM</RootNamespace>
+    <AssemblyName>FIM</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileManager.cs" />
+    <Compile Include="FIMService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -52,6 +52,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Manager\Manager.csproj">
+      <Project>{dd5e2d76-1692-4c04-9c91-37b4b4476040}</Project>
+      <Name>Manager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServiceContracts\ServiceContracts.csproj">
       <Project>{51904A43-E6D9-41E9-B2FD-4210EE2124C1}</Project>
       <Name>ServiceContracts</Name>

@@ -11,11 +11,11 @@ namespace ServiceContracts
     {
         [OperationContract]
         [FaultContract(typeof(FileOperationsException))]
-        void AddFile(string fileName, string text);
+        void AddFile(string fileName, byte[] signature,string text);
 
         [OperationContract]
         [FaultContract(typeof(FileOperationsException))]
-        void EditFile(string fileName, string text);
+        void EditFile(string fileName, byte[] signature, string text);
 
         [OperationContract]
         [FaultContract(typeof(FileOperationsException))]

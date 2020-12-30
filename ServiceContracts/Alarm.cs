@@ -21,6 +21,7 @@ namespace ServiceContracts
 			Risk = risk;
 		}
 
+		/*
 		public string Serialize()
 		{
 			return TimeStamp.ToString() + ';' + Message + ';' + Risk;
@@ -34,5 +35,6 @@ namespace ServiceContracts
 
 			return alarm;
 		}
+		*/
 	}
 }

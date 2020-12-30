@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.ServiceModel;
+using System.ServiceModel.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,7 +18,9 @@ namespace Client
 
         public ClientProxy(NetTcpBinding binding, EndpointAddress address) : base(binding, address)
         {
-            //string cltCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
+            string cltCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
+            // this.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = X509CertificateValidationMode.Custom;
+            //this.Credentials.ClientCertificate.Certificate = X509CertificateValidationMode.Custom;
 
             //this.Credentials.ClientCertificate.Certificate =
             //    CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, cltCertCN);

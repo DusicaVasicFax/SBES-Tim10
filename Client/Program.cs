@@ -14,8 +14,16 @@ namespace Client
     {
         private static void Main(string[] args)
         {
+            // netTcpBinding od klijenta
             NetTcpBinding binding = new NetTcpBinding();
             string address = "net.tcp://localhost:9999/FileManager";
+
+
+            // OVO SAM DODAVAO, moramo podesiti da binding korisiti Transport da bi stitili kanal i da bi
+            // bilo enkriptovano i potpisano
+            binding.Security.Mode = SecurityMode.Transport;
+            binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
+            binding.Security.Transport.ProtectionLevel = System.Net.Security.ProtectionLevel.EncryptAndSign;
 
             //string clientCert = WindowsIdentity.GetCurrent().Name;
 

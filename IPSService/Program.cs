@@ -11,6 +11,7 @@ namespace IPSService
             NetTcpBinding binding = new NetTcpBinding();
             string address = "net.tcp://localhost:9999/SecurityService";
 
+            // zasto imam dva servisa ?
             binding.Security.Mode = SecurityMode.Transport;
             binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
             binding.Security.Transport.ProtectionLevel = System.Net.Security.ProtectionLevel.EncryptAndSign;

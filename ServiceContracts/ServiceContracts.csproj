@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alarm.cs" />
     <Compile Include="Files.cs" />
     <Compile Include="IFileManagerService.cs" />
     <Compile Include="IFIMService.cs" />

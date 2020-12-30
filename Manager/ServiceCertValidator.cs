@@ -22,6 +22,11 @@ namespace Manager
             {
                 throw new Exception("Certificate is not from the valid issuer.");
             }
+
+            if (certificate.NotAfter.Ticks <= DateTime.Now.Ticks)
+            {
+                throw new Exception("Certificate has expired.");
+            }
         }
     }
 }

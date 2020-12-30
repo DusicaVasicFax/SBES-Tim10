@@ -1,4 +1,5 @@
-﻿using System.Security;
+﻿using System;
+using System.Security;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Manager
@@ -56,8 +57,26 @@ namespace Manager
 		{
 			X509Certificate2 certificate = null;
 
+			Console.Write("Insert password for the private key: ");
+			string pom = Console.ReadLine();
+
+			foreach (char c in pom)
+			{
+				pwd.AppendChar(c);
+			}
+			pom = string.Empty;
+
+			try
+			{
+				certificate = new X509Certificate2(fileName, pwd);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("Error while trying to GetCertificateFromFile {0}. ERROR = {1}", fileName, e.Message);
+			}
 
 			return certificate;
+
 		}
 	}
 }

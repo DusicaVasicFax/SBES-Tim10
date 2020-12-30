@@ -15,6 +15,7 @@ namespace FileManagerService
             NetTcpBinding binding = new NetTcpBinding();
             string address = "net.tcp://localhost:9999/FileManager";
 
+            // da se uspostavi veza izmedju klijenta i servera
             ServiceHost host = new ServiceHost(typeof(FileManager));
             host.AddServiceEndpoint(typeof(IFileManagerService), binding, address);
 

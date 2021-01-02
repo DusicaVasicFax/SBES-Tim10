@@ -25,8 +25,8 @@ namespace FIM
             var sign = File.ReadLines(path + filename);
 
             byte[] signature = Convert.FromBase64String(sign.Last());
-
-            if (DigitalSignature.Verify("Ovde treba fajl ili deo fajla da se salje", HashAlgorithms.SHA1, signature, certificate))//TODO kako doci do potpisa
+            //TODO cover multiline text instead of the first line
+            if (DigitalSignature.Verify(sign.First(), HashAlgorithms.SHA1, signature, certificate))
             {
                 Console.WriteLine("Valid signature");
                 Console.ReadLine();

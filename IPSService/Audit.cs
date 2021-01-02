@@ -31,7 +31,7 @@ namespace IPSService
             {
                 string critical = AuditEvents.Critical;
                 string message = String.Format(critical, alarm.TimeStamp.ToString(), alarm.Filename, alarm.Path);
-                customLog.WriteEntry(message);
+                customLog.WriteEntry(message, EventLogEntryType.Error);
             }
             else
             {
@@ -46,7 +46,7 @@ namespace IPSService
             {
                 string information = AuditEvents.Information;
                 string message = String.Format(information, alarm.TimeStamp.ToString(), alarm.Filename, alarm.Path);
-                customLog.WriteEntry(message);
+                customLog.WriteEntry(message, EventLogEntryType.Information);
             }
             else
             {
@@ -61,7 +61,7 @@ namespace IPSService
             {
                 string warning = AuditEvents.Warning;
                 string message = String.Format(warning, alarm.TimeStamp.ToString(), alarm.Filename, alarm.Path);
-                customLog.WriteEntry(message);
+                customLog.WriteEntry(message, EventLogEntryType.Warning);
             }
             else
             {

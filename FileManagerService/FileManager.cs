@@ -13,14 +13,15 @@ namespace FileManagerService
     public class FileManager : IFileManagerService
     {
         public static string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\Files\\"));
+        public static string pathConfig = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\FIM\\FIMConfig.txt"));
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Managment")]
         public void AddFile(string fileName, byte[] signature, string text)
-
         {
             if (!File.Exists(GetFilePath(fileName)))
             {
                 File.WriteAllText(GetFilePath(fileName), text + '\n' + Convert.ToBase64String(signature)); //TODO change signature to something else
+                File.AppendAllText(pathConfig, $"\r\n{fileName}");
             }
             else
             {
@@ -29,10 +30,15 @@ namespace FileManagerService
             Console.WriteLine(path);
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
         public void DeleteFile(string fileName)
         {
             if (File.Exists(GetFilePath(fileName)))
+            {
                 File.Delete(GetFilePath(fileName));
+                List<string> filesWithDeleted = File.ReadAllLines(pathConfig).Where(x => !x.Equals(fileName)).ToList();
+                File.WriteAllLines(pathConfig, filesWithDeleted);
+            }
             else
                 throw new FaultException<FileOperationsException>(new FileOperationsException("Cannot delete a file that does not exist"));
         }
@@ -43,7 +49,7 @@ namespace FileManagerService
         {
             if (File.Exists(GetFilePath(fileName)))
             {
-                //TODO edit file without creating a new one
+                File.WriteAllText(GetFilePath(fileName), text + '\n' + Convert.ToBase64String(signature));
             }
             else
             {

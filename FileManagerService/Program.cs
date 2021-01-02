@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace FileManagerService
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             NetTcpBinding binding = new NetTcpBinding();
             string address = "net.tcp://localhost:9999/FileManager";
@@ -18,14 +18,11 @@ namespace FileManagerService
             ServiceHost host = new ServiceHost(typeof(FileManager));
             host.AddServiceEndpoint(typeof(IFileManagerService), binding, address);
 
-           // host.Authorization.ServiceAuthorizationManager = new AuthorizationManager();
-
             host.Open();
-            Console.WriteLine("WCFService is opened. Press <enter> to finish...");
+            Console.WriteLine("FileManagerService is opened. Press <enter> to finish...");
             Console.ReadLine();
 
             host.Close();
-
         }
     }
 }

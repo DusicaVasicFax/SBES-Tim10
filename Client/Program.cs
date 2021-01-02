@@ -20,7 +20,7 @@ namespace Client
             //string clientCert = WindowsIdentity.GetCurrent().Name;
 
             //sertifikat za potpisivanje client_sign
-            string signCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name.ToLower())+"_sign";
+            string signCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name.ToLower()) + "_sign";
 
             Console.ReadLine();
 
@@ -30,10 +30,9 @@ namespace Client
                 StoreLocation.LocalMachine, signCertCN);
 
                 byte[] signature = DigitalSignature.Create("Ovde treba fajl ili deo fajla da se salje", HashAlgorithms.SHA1, clientCERT);
-                
-                proxy.AddFile("file1.txt", signature ,"First file");
-              //  proxy.EditFile("file1.txt", signature,"First file again");
-                //proxy.DeleteFile("file1.txt");
+                //proxy.AddFile("file5.txt", signature, "First file");
+                ////  proxy.EditFile("file1.txt", signature,"First file again");
+                //proxy.DeleteFile("file5.txt");
             }
 
             Console.ReadLine();

@@ -1,7 +1,11 @@
-﻿using System;
+﻿using Manager;
+using ServiceContracts;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,26 +18,61 @@ namespace FIM
 
         private static void Main(string[] args)
         {
+            Console.ReadLine();
             if (!CheckIfConfigExists()) return;
-            Thread thread = new Thread(FimService);
+            Thread thread = new Thread(FimServiceFlow);
             //thread.IsBackground = true;
             thread.Start();
             //TODO enter the number N that will put the thread to sleep
         }
 
-        private static void FimService()
+        private static void FimServiceFlow()
         {
-            while (true)
+            /// Define the expected service certificate. It is required to establish cmmunication using certificates.
+            string srvCertCN = "ips";
+
+            NetTcpBinding binding = new NetTcpBinding();
+            binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Certificate;
+
+            /// Use CertManager class to obtain the certificate based on the "srvCertCN" representing the expected service identity.
+            X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, srvCertCN);
+            EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:8888/IIPSService"),
+                                      new X509CertificateEndpointIdentity(srvCert));
+
+            using (FIMClient proxy = new FIMClient(binding, address))
             {
-                if (!CheckIfConfigExists()) Environment.Exit(42);
+                while (true)
+                {
+                    if (!CheckIfConfigExists()) Environment.Exit(42);
 
-                Console.WriteLine("Sleep now");
-                List<string> fileText = File.ReadAllText(pathConfig).Split('\n').Select(x => x.Replace("\r", string.Empty)).Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
+                    Console.WriteLine("Sleep now");
+                    List<string> filenames = File.ReadAllText(pathConfig).Split('\n').Select(x => x.Replace("\r", string.Empty)).Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
 
-                FIMService fimservice = new FIMService();
-                //TODO uncomment later
-                //fimservice.Check("path");
-                Thread.Sleep(2000);
+                    FIMService service = new FIMService();
+
+                    filenames.ForEach(currentFilename =>
+                    {
+                        Alarm alarm = service.Check(currentFilename);
+                        if (alarm != null)
+                        {
+                            switch (alarm.Risk)
+                            {
+                                case AuditEventTypes.Critical:
+                                    proxy.CriticalLog(alarm);
+                                    break;
+
+                                case AuditEventTypes.Information:
+                                    proxy.InformationLog(alarm);
+                                    break;
+
+                                case AuditEventTypes.Warning:
+                                    proxy.WarningLog(alarm);
+                                    break;
+                            }
+                        }
+                    });
+                    Thread.Sleep(2000);
+                }
             }
         }
 

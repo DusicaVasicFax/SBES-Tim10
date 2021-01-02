@@ -33,7 +33,8 @@ namespace Client
             }
             catch (FaultException<FileOperationsException> e)
             {
-                Console.WriteLine($"Error while trying to add file: {fileName}");
+                Console.WriteLine($"{e.Detail.Message}");
+                //Console.WriteLine($"Error while trying to add file: {fileName}");
             }
             catch (Exception e)
             {
@@ -49,7 +50,7 @@ namespace Client
             }
             catch (FaultException<FileOperationsException> e)
             {
-                Console.WriteLine($"Error while trying to delete file: {fileName}");
+                Console.WriteLine($"{e.Detail.Message}");
             }
             catch (Exception e)
             {
@@ -65,7 +66,7 @@ namespace Client
             }
             catch (FaultException<FileOperationsException> e)
             {
-                Console.WriteLine($"Error while trying to edit file: {fileName}");
+                Console.WriteLine($"{e.Detail.Message}");
             }
             catch (Exception e)
             {

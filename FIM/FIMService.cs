@@ -29,12 +29,10 @@ namespace FIM
             if (DigitalSignature.Verify(sign.First(), HashAlgorithms.SHA1, signature, certificate))
             {
                 Console.WriteLine("Valid signature");
-                Console.ReadLine();
             }
             else
             {
                 Console.WriteLine("Invalid signature");
-                Console.ReadLine();
                 return DetermineAuditType(filename);
             }
             return null;

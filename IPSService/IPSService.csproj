@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,7 +47,6 @@
   <ItemGroup>
     <Compile Include="Audit.cs" />
     <Compile Include="AuditEvents.cs" />
-    <Compile Include="FileManagerProxy.cs" />
     <Compile Include="IPSService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,6 +55,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Manager\Manager.csproj">
+      <Project>{DD5E2D76-1692-4C04-9C91-37B4B4476040}</Project>
+      <Name>Manager</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Resources\Resources.csproj">
       <Project>{ad428c7d-fbb0-46b4-8c4a-ba7565fae1b5}</Project>
       <Name>Resources</Name>

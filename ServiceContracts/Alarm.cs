@@ -1,25 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ServiceContracts
 {
+    [DataContract]
     public enum AuditEventTypes
     {
-        Critical = 0,
-        Information = 1,
-        Warning = 2
+        [EnumMember] Critical = 0,
+        [EnumMember] Information = 1,
+        [EnumMember] Warning = 2
     }
 
+    [DataContract]
     public class Alarm
     {
+        [DataMember]
         public DateTime TimeStamp { get; set; }
+
+        [DataMember]
         public string Path { get; set; }
 
+        [DataMember]
         public string Filename { get; set; }
 
+        [DataMember]
         public AuditEventTypes Risk { get; set; }
 
         public Alarm(DateTime timeStamp, string path, AuditEventTypes risk, string filename)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceContracts;
+using System;
 using System.Diagnostics;
 
 namespace IPSService
@@ -24,12 +25,12 @@ namespace IPSService
             }
         }
 
-        public static void CriticalLog(DateTime time, string path, string fileName)
+        public static void CriticalLog(Alarm alarm)
         {
             if (customLog != null)
             {
                 string critical = AuditEvents.Critical;
-                string message = String.Format(critical, time.ToString(), fileName, path);
+                string message = String.Format(critical, alarm.TimeStamp.ToString(), alarm.Filename, alarm.Path);
                 customLog.WriteEntry(message);
             }
             else
@@ -39,12 +40,12 @@ namespace IPSService
             }
         }
 
-        public static void InformationLog(DateTime time, string path, string fileName)
+        public static void InformationLog(Alarm alarm)
         {
             if (customLog != null)
             {
                 string information = AuditEvents.Information;
-                string message = String.Format(information, time.ToString(), fileName, path);
+                string message = String.Format(information, alarm.TimeStamp.ToString(), alarm.Filename, alarm.Path);
                 customLog.WriteEntry(message);
             }
             else
@@ -54,12 +55,12 @@ namespace IPSService
             }
         }
 
-        public static void WarningLog(DateTime time, string path, string fileName)
+        public static void WarningLog(Alarm alarm)
         {
             if (customLog != null)
             {
                 string warning = AuditEvents.Warning;
-                string message = String.Format(warning, time.ToString(), fileName, path);
+                string message = String.Format(warning, alarm.TimeStamp.ToString(), alarm.Filename, alarm.Path);
                 customLog.WriteEntry(message);
             }
             else

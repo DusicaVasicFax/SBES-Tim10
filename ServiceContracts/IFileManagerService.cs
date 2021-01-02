@@ -11,7 +11,7 @@ namespace ServiceContracts
     {
         [OperationContract]
         [FaultContract(typeof(FileOperationsException))]
-        void AddFile(string fileName, byte[] signature,string text);
+        void AddFile(string fileName, byte[] signature, string text);
 
         [OperationContract]
         [FaultContract(typeof(FileOperationsException))]

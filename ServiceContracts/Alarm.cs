@@ -16,17 +16,18 @@ namespace ServiceContracts
     public class Alarm
     {
         public DateTime TimeStamp { get; set; }
-        public string Message { get; set; }
         public string Path { get; set; }
+
+        public string Filename { get; set; }
 
         public AuditEventTypes Risk { get; set; }
 
-        public Alarm(DateTime timeStamp, string message, string path, AuditEventTypes risk)
+        public Alarm(DateTime timeStamp, string path, AuditEventTypes risk, string filename)
         {
             TimeStamp = timeStamp;
             Path = path;
-            Message = message;
             Risk = risk;
+            Filename = filename;
         }
     }
 }

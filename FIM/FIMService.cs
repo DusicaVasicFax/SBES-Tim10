@@ -17,7 +17,7 @@ namespace FIM
     {
         public static string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\Files\\"));
 
-        public void Check(string filename)
+        public Alarm Check(string filename)
         {
             X509Certificate2 certificate = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople,
                StoreLocation.LocalMachine, "client_sign");
@@ -35,24 +35,24 @@ namespace FIM
             {
                 Console.WriteLine("Invalid signature");
                 Console.ReadLine();
-                DetermineAuditType(filename);
+                return DetermineAuditType(filename);
             }
+            return null;
         }
 
-        private void DetermineAuditType(string filename)
+        private Alarm DetermineAuditType(string filename)
         {
             switch (ReadEventLog(filename))
             {
                 case 0:
-                case 1: // INFORMATION
-                    break;
+                case 1:
+                    return new Alarm(DateTime.Now, path, AuditEventTypes.Information, filename);
 
-                case 2: //  WARNING
-                    break;
+                case 2:
+                    return new Alarm(DateTime.Now, path, AuditEventTypes.Warning, filename);
 
                 default:
-                    //CRITICAL
-                    break;
+                    return new Alarm(DateTime.Now, path, AuditEventTypes.Critical, filename);
             }
         }
 

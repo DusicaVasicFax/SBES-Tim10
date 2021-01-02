@@ -7,6 +7,12 @@ namespace ServiceContracts
     public interface IIPSService
     {
         [OperationContract]
-        void Alarm(DateTime detectionTime, string path, string fileName);
+        void CriticalLog(Alarm alarm);
+
+        [OperationContract]
+        void InformationLog(Alarm alarm);
+
+        [OperationContract]
+        void WarningLog(Alarm alarm);
     }
 }

@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace ServiceContracts
 {
+    //TODO maybe remove this since it's not hosted on the server
     [ServiceContract]
     public interface IFIMService
     {
         [OperationContract]
-        void Check(string filename);
+        Alarm Check(string filename);
     }
 }

@@ -23,8 +23,10 @@ namespace IPSService
             //using (FileManagerProxy proxy = new FileManagerProxy(binding, endpointAddress))
             //{
             //}
-            Audit.CriticalLog(DateTime.Now, "some path", "some filename");
 
+            Audit.CriticalLog(DateTime.Now, "some path", "some filename");
+            Audit.WarningLog(DateTime.Now, "some path", "some filename");
+            Audit.InformationLog(DateTime.Now, "some path", "some filename");
             Console.ReadLine();
         }
     }

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Critical" xml:space="preserve">
-    <value>{0} {1}</value>
+    <value>"{0}" filename:  [{1}]  filePath: {2}</value>
   </data>
   <data name="Information" xml:space="preserve">
-    <value>{0} {1}</value>
+    <value>"{0}" filename:  [{1}]  filePath: {2}</value>
   </data>
   <data name="Warning" xml:space="preserve">
-    <value>{0} {1}</value>
+    <value>"{0}" filename:  [{1}]  filePath: {2}</value>
   </data>
 </root>

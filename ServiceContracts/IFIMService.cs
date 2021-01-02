@@ -11,6 +11,6 @@ namespace ServiceContracts
     public interface IFIMService
     {
         [OperationContract]
-        void Check();
+        void Check(string filename);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Manager;
+using Microsoft.Win32;
 using ServiceContracts;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,12 @@ namespace FIM
     {
         public static string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\Files\\"));
 
-        public void Check()
+        public void Check(string filename)
         {
             X509Certificate2 certificate = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople,
                StoreLocation.LocalMachine, "client_sign");
 
-            var sign = File.ReadLines(path + "file1.txt");
+            var sign = File.ReadLines(path + filename);
 
             byte[] signature = Convert.FromBase64String(sign.Last());
 
@@ -34,12 +35,47 @@ namespace FIM
             {
                 Console.WriteLine("Invalid signature");
                 Console.ReadLine();
+                DetermineAuditType(filename);
             }
         }
 
-        private void ReadEventLog()
+        private void DetermineAuditType(string filename)
         {
-            //EventLog[] log = EventLog.GetEventLogs("../")
+            switch (ReadEventLog(filename))
+            {
+                case 0:
+                case 1: // INFORMATION
+                    break;
+
+                case 2: //  WARNING
+                    break;
+
+                default:
+                    //CRITICAL
+                    break;
+            }
+        }
+
+        public int ReadEventLog(string filename)
+        {
+            EventLog log = new EventLog();
+            log.Log = "SBES-PROJ-LOG";
+            int cnt = 0;
+
+            foreach (EventLogEntry entry in log.Entries)
+            {
+                int pFrom = entry.Message.IndexOf("[");
+                int pTo = entry.Message.LastIndexOf("]");
+                string msg = entry.Message.Substring(pFrom + 1, pTo - pFrom - 1);
+
+                if (msg.Contains(filename))
+                {
+                    cnt++;
+                }
+            }
+            return cnt;
+
+            //log.Entries.Cast<EventLogEntry>().Where(x => x.Message.Contains(filename)).Count();
         }
     }
 }

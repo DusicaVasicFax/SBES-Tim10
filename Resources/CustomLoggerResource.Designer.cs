@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1}.
+        ///   Looks up a localized string similar to &quot;{0}&quot; filename:  [{1}]  filePath: {2}.
         /// </summary>
         public static string Critical {
             get {
@@ -70,7 +70,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1}.
+        ///   Looks up a localized string similar to &quot;{0}&quot; filename:  [{1}]  filePath: {2}.
         /// </summary>
         public static string Information {
             get {
@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} {1}.
+        ///   Looks up a localized string similar to &quot;{0}&quot; filename:  [{1}]  filePath: {2}.
         /// </summary>
         public static string Warning {
             get {

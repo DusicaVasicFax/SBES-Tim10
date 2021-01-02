@@ -1,16 +1,10 @@
 ﻿using System.Reflection;
 using System.Resources;
 using Resources;
+using ServiceContracts;
 
 namespace IPSService
 {
-    public enum AuditEventTypes
-    {
-        Critical = 0,
-        Information = 1,
-        Warning = 2
-    }
-
     public class AuditEvents
     {
         private static ResourceManager resourceManager = null;

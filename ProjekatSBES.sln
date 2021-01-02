@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPSService", "IPSService\IP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceContracts", "ServiceContracts\ServiceContracts.csproj", "{51904A43-E6D9-41E9-B2FD-4210EE2124C1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1221D91F-6BFA-4B53-B32E-CF583D85F2F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +101,18 @@ Global
 		{51904A43-E6D9-41E9-B2FD-4210EE2124C1}.Release|x64.Build.0 = Release|x64
 		{51904A43-E6D9-41E9-B2FD-4210EE2124C1}.Release|x86.ActiveCfg = Release|x86
 		{51904A43-E6D9-41E9-B2FD-4210EE2124C1}.Release|x86.Build.0 = Release|x86
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Debug|x64.Build.0 = Debug|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Debug|x86.Build.0 = Debug|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Release|x64.ActiveCfg = Release|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Release|x64.Build.0 = Release|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Release|x86.ActiveCfg = Release|Any CPU
+		{AD428C7D-FBB0-46B4-8C4A-BA7565FAE1B5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

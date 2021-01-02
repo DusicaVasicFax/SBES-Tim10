@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Resources;
+using Resources;
 
 namespace IPSService
 {
@@ -23,9 +24,10 @@ namespace IPSService
                 {
                     if (resourceManager == null)
                     {
+                        Assembly localisationAssembly = Assembly.Load("Resources");
                         resourceManager = new ResourceManager
-                            (typeof(AuditEventFile).ToString(),
-                            Assembly.GetExecutingAssembly());
+                            (typeof(CustomLoggerResource).ToString(),
+                            localisationAssembly);
                     }
                     return resourceManager;
                 }

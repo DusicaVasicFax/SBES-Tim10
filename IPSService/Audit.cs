@@ -6,8 +6,8 @@ namespace IPSService
     public class Audit : IDisposable
     {
         private static EventLog customLog = null;
-        private const string SourceName = "IPSService.Audit";
-        private const string LogName = "logName";
+        private const string SourceName = "SBES";
+        private const string LogName = "Application";
 
         static Audit()
         {
@@ -30,7 +30,7 @@ namespace IPSService
             {
                 string critical = AuditEvents.Critical;
                 string message = String.Format(critical, time.ToString(), fileName, path);
-                customLog.WriteEntry(message);
+                customLog.WriteEntry(message, EventLogEntryType.Error);
             }
             else
             {
@@ -45,7 +45,7 @@ namespace IPSService
             {
                 string information = AuditEvents.Information;
                 string message = String.Format(information, time.ToString(), fileName, path);
-                customLog.WriteEntry(message);
+                customLog.WriteEntry(message, EventLogEntryType.Information);
             }
             else
             {
@@ -60,7 +60,7 @@ namespace IPSService
             {
                 string warning = AuditEvents.Warning;
                 string message = String.Format(warning, time.ToString(), fileName, path);
-                customLog.WriteEntry(message);
+                customLog.WriteEntry(message, EventLogEntryType.Warning);
             }
             else
             {

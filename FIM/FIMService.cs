@@ -2,6 +2,7 @@
 using ServiceContracts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -34,6 +35,11 @@ namespace FIM
                 Console.WriteLine("Invalid signature");
                 Console.ReadLine();
             }
+        }
+
+        private void ReadEventLog()
+        {
+            //EventLog[] log = EventLog.GetEventLogs("../")
         }
     }
 }

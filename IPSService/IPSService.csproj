@@ -50,22 +50,15 @@
     <Compile Include="IPSService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AuditEventFile.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AuditEventFile.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AuditEventFile.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AuditEventFile.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\Resources\Resources.csproj">
+      <Project>{ad428c7d-fbb0-46b4-8c4a-ba7565fae1b5}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServiceContracts\ServiceContracts.csproj">
       <Project>{51904A43-E6D9-41E9-B2FD-4210EE2124C1}</Project>
       <Name>ServiceContracts</Name>

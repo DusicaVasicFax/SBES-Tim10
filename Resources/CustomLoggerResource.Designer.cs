@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IPSService {
+namespace Resources {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace IPSService {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AuditEventFile {
+    public class CustomLoggerResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AuditEventFile() {
+        public CustomLoggerResource() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("IPSService.AuditEventFile", typeof(AuditEventFile).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resources.CustomLoggerResource", typeof(CustomLoggerResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace IPSService {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,27 +61,27 @@ namespace IPSService {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File changed wihout permission at {0} . File name is {1}. File path is {2}.
+        ///   Looks up a localized string similar to {0} {1}.
         /// </summary>
-        internal static string Critical {
+        public static string Critical {
             get {
                 return ResourceManager.GetString("Critical", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File changed wihout permission at {0} . File name is {1}. File path is {2}.
+        ///   Looks up a localized string similar to {0} {1}.
         /// </summary>
-        internal static string Information {
+        public static string Information {
             get {
                 return ResourceManager.GetString("Information", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File changed wihout permission at {0} . File name is {1}. File path is {2}.
+        ///   Looks up a localized string similar to {0} {1}.
         /// </summary>
-        internal static string Warning {
+        public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
             }

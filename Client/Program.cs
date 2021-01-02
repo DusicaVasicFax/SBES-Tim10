@@ -47,7 +47,7 @@ namespace Client
                         case 1:
                             Console.WriteLine("Unesite ime fajla u kom zelite da usete tekst");
                             string filename = Console.ReadLine();
-                            Console.WriteLine("Unesite tekst koji zelite da upisete u fajl");
+                            Console.WriteLine("Unesite tekst koji zelite da upisete u fajl koji ste uneli");
                             string text = Console.ReadLine();
                             proxy.AddFile(filename, signature, text);
                             break;

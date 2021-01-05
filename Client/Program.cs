@@ -34,7 +34,7 @@ namespace Client
                 while (true)
                 {
                     Console.WriteLine("*****************Menu*****************");
-                    Console.WriteLine("1. Dodaj fajl\n2. Obrisi fajl\n3. Azuriraj fajl\n4.Exit");
+                    Console.WriteLine("1. Doda fajl\n2. Obrisi fajl\n3. Azuriraj fajl\n4.Exit");
                     Console.Write("Choose option: ");
                     int choice = int.Parse(Console.ReadLine());
                     switch (choice)

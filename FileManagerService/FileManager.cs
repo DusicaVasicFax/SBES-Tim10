@@ -7,6 +7,8 @@ using System.IO;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using System.Security.Permissions;
+using System.Security.Principal;
+using System.Threading;
 
 namespace FileManagerService
 {
@@ -20,7 +22,7 @@ namespace FileManagerService
         {
             if (!File.Exists(GetFilePath(fileName)))
             {
-                File.WriteAllText(GetFilePath(fileName), text + '\n' + Convert.ToBase64String(signature)); //TODO change signature to something else
+                File.WriteAllText(GetFilePath(fileName), text + '\n' + Convert.ToBase64String(signature));
                 File.AppendAllText(pathConfig, $"\r\n{fileName}");
             }
             else
@@ -33,6 +35,16 @@ namespace FileManagerService
         [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
         public void DeleteFile(string fileName)
         {
+            IIdentity identity = Thread.CurrentPrincipal.Identity;
+
+            Console.WriteLine("Tip autentifikacije : " + identity.AuthenticationType);
+
+            WindowsIdentity windowsIdentity = identity as WindowsIdentity;
+
+            Console.WriteLine("Ime klijenta koji je pozvao metodu : " + windowsIdentity.Name);
+            Console.WriteLine("Jedinstveni identifikator : " + windowsIdentity.User);
+
+
             if (File.Exists(GetFilePath(fileName)))
             {
                 File.Delete(GetFilePath(fileName));
@@ -45,8 +57,20 @@ namespace FileManagerService
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Managment")]
         public void EditFile(string fileName, byte[] signature, string text)
-
         {
+
+            IIdentity identity = Thread.CurrentPrincipal.Identity;
+
+            Console.WriteLine("Tip autentifikacije : " + identity.AuthenticationType);
+
+            WindowsIdentity windowsIdentity = identity as WindowsIdentity;
+
+            Console.WriteLine("Ime klijenta koji je pozvao metodu : " + windowsIdentity.Name);
+            Console.WriteLine("Jedinstveni identifikator : " + windowsIdentity.User);
+
+            Console.WriteLine("Grupe korisnika:");
+            
+
             if (File.Exists(GetFilePath(fileName)))
             {
                 File.WriteAllText(GetFilePath(fileName), text + '\n' + Convert.ToBase64String(signature));
@@ -55,7 +79,6 @@ namespace FileManagerService
             {
                 throw new FaultException<FileOperationsException>(new FileOperationsException("Cannot edit a file that does not exist"));
             }
-            File.WriteAllText(GetFilePath(fileName), text);
         }
 
         private string GetFilePath(string fileName)

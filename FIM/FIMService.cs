@@ -28,11 +28,13 @@ namespace FIM
             //TODO cover multiline text instead of the first line
             try
             {
-                DigitalSignature.Verify(sign.First(), HashAlgorithms.SHA1, signature, certificate);
-            
-                Console.WriteLine("Valid signature");
+                if (!DigitalSignature.Verify(sign.First(), HashAlgorithms.SHA1, signature, certificate))
+                {
+                    Console.WriteLine("Invalid signature");
+                    return DetermineAuditType(filename);
+                }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine("Invalid signature" + e.Message);
                 return DetermineAuditType(filename);
@@ -44,11 +46,11 @@ namespace FIM
         {
             switch (ReadEventLog(filename))
             {
+                // PROGRAMERI BROJE OD 0
                 case 0:
-                case 1:
                     return new Alarm(DateTime.Now, path, AuditEventTypes.Information, filename);
 
-                case 2:
+                case 1:
                     return new Alarm(DateTime.Now, path, AuditEventTypes.Warning, filename);
 
                 default:
@@ -75,7 +77,14 @@ namespace FIM
             }
             return cnt;
 
-            //log.Entries.Cast<EventLogEntry>().Where(x => x.Message.Contains(filename)).Count();
+            //eto nije jedna linija al je makar napredno
+            log.Entries.Cast<EventLogEntry>().Where(x =>
+            {
+                int pFrom = x.Message.IndexOf("[");
+                int pTo = x.Message.LastIndexOf("]");
+                string msg = x.Message.Substring(pFrom + 1, pTo - pFrom - 1);
+                return msg.Contains(filename);
+            }).Count();
         }
     }
 }

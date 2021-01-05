@@ -7,17 +7,12 @@ namespace IPSService
 {
     public class IPSService : IIPSService, IDisposable
     {
-        private FileManagerProxy proxy;
-
-        public IPSService()
-        {
-        }
-
         public void CriticalLog(Alarm alarm)
         {
             Audit.CriticalLog(alarm);
             Console.WriteLine("Critical");
             NetTcpBinding binding = new NetTcpBinding();
+
             string address = "net.tcp://localhost:9999/FileManager";
 
             binding.Security.Mode = SecurityMode.Transport;
@@ -28,19 +23,18 @@ namespace IPSService
 
             EndpointAddress endpointAddress = new EndpointAddress(new Uri(address),
                 EndpointIdentity.CreateUpnIdentity("filemanager"));
-            this.proxy = new FileManagerProxy(binding, endpointAddress);
-            this.proxy.Open();
 
-            this.proxy.DeleteFile(alarm.Filename);
+            FileManagerProxy proxy = new FileManagerProxy(binding, endpointAddress);
+            if (proxy == null || proxy.State != CommunicationState.Opened)
+            {
+                proxy.Open();
+            }
+            proxy.DeleteFile(alarm.Filename);
+            proxy.Close();
         }
 
         public void Dispose()
         {
-            if (this.proxy != null)
-            {
-                this.proxy.Close();
-                this.proxy = null;
-            }
         }
 
         public void InformationLog(Alarm alarm)

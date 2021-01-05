@@ -11,8 +11,14 @@ namespace IPSService
 
         public IPSService()
         {
+        }
+
+        public void CriticalLog(Alarm alarm)
+        {
+            Audit.CriticalLog(alarm);
+            Console.WriteLine("Critical");
             NetTcpBinding binding = new NetTcpBinding();
-            string address = "net.tcp://localhost:9999/SecurityService";
+            string address = "net.tcp://localhost:9999/FileManager";
 
             binding.Security.Mode = SecurityMode.Transport;
             binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
@@ -21,15 +27,9 @@ namespace IPSService
             Console.WriteLine("Korisnik koji je pokrenuo klijenta je : " + WindowsIdentity.GetCurrent().Name);
 
             EndpointAddress endpointAddress = new EndpointAddress(new Uri(address),
-                EndpointIdentity.CreateUpnIdentity("wcfServer"));
+                EndpointIdentity.CreateUpnIdentity("filemanager"));
             this.proxy = new FileManagerProxy(binding, endpointAddress);
             this.proxy.Open();
-        }
-
-        public void CriticalLog(Alarm alarm)
-        {
-            Audit.CriticalLog(alarm);
-            Console.WriteLine("Critical");
 
             this.proxy.DeleteFile(alarm.Filename);
         }

@@ -26,13 +26,15 @@ namespace FIM
 
             byte[] signature = Convert.FromBase64String(sign.Last());
             //TODO cover multiline text instead of the first line
-            if (DigitalSignature.Verify(sign.First(), HashAlgorithms.SHA1, signature, certificate))
+            try
             {
+                DigitalSignature.Verify(sign.First(), HashAlgorithms.SHA1, signature, certificate);
+            
                 Console.WriteLine("Valid signature");
             }
-            else
+            catch(Exception e)
             {
-                Console.WriteLine("Invalid signature");
+                Console.WriteLine("Invalid signature" + e.Message);
                 return DetermineAuditType(filename);
             }
             return null;

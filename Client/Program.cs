@@ -16,10 +16,6 @@ namespace Client
         {
             NetTcpBinding binding = new NetTcpBinding();
             string address = "net.tcp://localhost:9999/FileManager";
-
-            //string clientCert = WindowsIdentity.GetCurrent().Name;
-
-            //sertifikat za potpisivanje client_sign
             string signCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name.ToLower()) + "_sign";
 
             Console.ReadLine();

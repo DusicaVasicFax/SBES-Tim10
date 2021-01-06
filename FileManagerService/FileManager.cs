@@ -27,23 +27,13 @@ namespace FileManagerService
             }
             else
             {
-                throw new FaultException<FileOperationsException>(new FileOperationsException("Something went wrong while adding the file"));
+                throw new FaultException<FileOperationsException>(new FileOperationsException("File already exists"));
             }
-            Console.WriteLine(path);
         }
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Admin")]
         public void DeleteFile(string fileName)
         {
-            IIdentity identity = Thread.CurrentPrincipal.Identity;
-
-            Console.WriteLine("Tip autentifikacije : " + identity.AuthenticationType);
-
-            WindowsIdentity windowsIdentity = identity as WindowsIdentity;
-
-            Console.WriteLine("Ime klijenta koji je pozvao metodu : " + windowsIdentity.Name);
-            Console.WriteLine("Jedinstveni identifikator : " + windowsIdentity.User);
-
             if (File.Exists(GetFilePath(fileName)))
             {
                 File.Delete(GetFilePath(fileName));
@@ -57,17 +47,6 @@ namespace FileManagerService
         [PrincipalPermission(SecurityAction.Demand, Role = "Managment")]
         public void EditFile(string fileName, byte[] signature, string text)
         {
-            IIdentity identity = Thread.CurrentPrincipal.Identity;
-
-            Console.WriteLine("Tip autentifikacije : " + identity.AuthenticationType);
-
-            WindowsIdentity windowsIdentity = identity as WindowsIdentity;
-
-            Console.WriteLine("Ime klijenta koji je pozvao metodu : " + windowsIdentity.Name);
-            Console.WriteLine("Jedinstveni identifikator : " + windowsIdentity.User);
-
-            Console.WriteLine("Grupe korisnika:");
-
             if (File.Exists(GetFilePath(fileName)))
             {
                 File.WriteAllText(GetFilePath(fileName), text + '\n' + Convert.ToBase64String(signature));

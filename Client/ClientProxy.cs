@@ -30,11 +30,11 @@ namespace Client
             try
             {
                 factory.AddFile(fileName, signature, text);
+                Console.WriteLine("Successfully added file");
             }
             catch (FaultException<FileOperationsException> e)
             {
                 Console.WriteLine($"{e.Detail.Message}");
-                //Console.WriteLine($"Error while trying to add file: {fileName}");
             }
             catch (Exception e)
             {
@@ -47,6 +47,7 @@ namespace Client
             try
             {
                 factory.EditFile(fileName, signature, text);
+                Console.WriteLine("Successfully edited file");
             }
             catch (FaultException<FileOperationsException> e)
             {

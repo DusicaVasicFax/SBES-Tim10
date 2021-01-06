@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ServiceContracts
 {
     [ServiceContract]
-    public interface IFileManagerService
+    public interface IFileAddAndModifyService
     {
         [OperationContract]
         [FaultContract(typeof(FileOperationsException))]
@@ -16,9 +16,5 @@ namespace ServiceContracts
         [OperationContract]
         [FaultContract(typeof(FileOperationsException))]
         void EditFile(string fileName, byte[] signature, string text);
-
-        [OperationContract]
-        [FaultContract(typeof(FileOperationsException))]
-        void DeleteFile(string fileName);
     }
 }

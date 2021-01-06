@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    public class ClientProxy : ChannelFactory<IFileManagerService>, IFileManagerService, IDisposable
+    public class ClientProxy : ChannelFactory<IFileAddAndModifyService>, IFileAddAndModifyService, IDisposable
     {
-        private IFileManagerService factory;
+        private IFileAddAndModifyService factory;
 
         public ClientProxy(NetTcpBinding binding, EndpointAddress address) : base(binding, address)
         {
@@ -35,22 +35,6 @@ namespace Client
             {
                 Console.WriteLine($"{e.Detail.Message}");
                 //Console.WriteLine($"Error while trying to add file: {fileName}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        public void DeleteFile(string fileName)
-        {
-            try
-            {
-                factory.DeleteFile(fileName);
-            }
-            catch (FaultException<FileOperationsException> e)
-            {
-                Console.WriteLine($"{e.Detail.Message}");
             }
             catch (Exception e)
             {

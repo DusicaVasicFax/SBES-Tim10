@@ -68,7 +68,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Alarm.cs" />
-    <Compile Include="IFileManagerService.cs" />
+    <Compile Include="IFileAddAndModifyService.cs" />
+    <Compile Include="IFileDeleteService.cs" />
     <Compile Include="IFIMService.cs" />
     <Compile Include="IIPSService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

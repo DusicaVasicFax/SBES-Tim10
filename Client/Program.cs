@@ -34,7 +34,7 @@ namespace Client
                 while (true)
                 {
                     Console.WriteLine("*****************Menu*****************");
-                    Console.WriteLine("1. Dodaj fajl\n2. Obrisi fajl\n3. Azuriraj fajl\n4.Exit");
+                    Console.WriteLine("1. Dodaj fajl\n2. Azuriraj fajl\n3.Exit");
                     Console.Write("Choose option: ");
                     int choice = int.Parse(Console.ReadLine());
                     switch (choice)
@@ -49,12 +49,6 @@ namespace Client
                             break;
 
                         case 2:
-                            Console.WriteLine("Unesite ime fajla koje zelite da obrisite");
-                            filename = Console.ReadLine();
-                            proxy.DeleteFile(filename);
-                            break;
-
-                        case 3:
                             Console.WriteLine("Unesite ime fajla u kom zelite da promenite tekst");
                             filename = Console.ReadLine();
                             Console.WriteLine("Unesite tekst koji zelite da izmenite");
@@ -63,8 +57,8 @@ namespace Client
                             proxy.EditFile(filename, signature, text);
                             break;
 
-                        case 4:
-                            Console.WriteLine("CAO");
+                        case 3:
+                            Console.WriteLine("Press any key to exit the application..");
                             Console.ReadLine();
                             return;
 

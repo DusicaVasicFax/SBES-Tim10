@@ -5,7 +5,7 @@ using System.ServiceModel;
 
 namespace IPSService
 {
-    public class IPSService : IIPSService, IDisposable
+    public class IPSService : IIPSService
     {
         public void CriticalLog(Alarm alarm)
         {
@@ -31,10 +31,6 @@ namespace IPSService
             }
             proxy.DeleteFile(alarm.Filename);
             proxy.Close();
-        }
-
-        public void Dispose()
-        {
         }
 
         public void InformationLog(Alarm alarm)

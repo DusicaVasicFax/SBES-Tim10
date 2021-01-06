@@ -4,9 +4,9 @@ using System.ServiceModel;
 
 namespace IPSService
 {
-    public class FileManagerProxy : ChannelFactory<IFileManagerService>, IFileManagerService, IDisposable
+    public class FileManagerProxy : ChannelFactory<IFileDeleteService>, IFileDeleteService, IDisposable
     {
-        private IFileManagerService factory;
+        private IFileDeleteService factory;
 
         public FileManagerProxy(NetTcpBinding binding, string address) : base(binding, address)
         {
@@ -16,11 +16,6 @@ namespace IPSService
         public FileManagerProxy(NetTcpBinding binding, EndpointAddress address) : base(binding, address)
         {
             factory = this.CreateChannel();
-        }
-
-        public void AddFile(string fileName, byte[] signature, string text)
-        {
-            throw new NotImplementedException();
         }
 
         public void DeleteFile(string fileName)
@@ -33,11 +28,6 @@ namespace IPSService
             {
                 Console.WriteLine("Error deleting file");
             }
-        }
-
-        public void EditFile(string fileName, byte[] signature, string text)
-        {
-            throw new NotImplementedException();
         }
     }
 }

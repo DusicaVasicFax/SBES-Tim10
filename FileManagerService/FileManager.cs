@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace FileManagerService
 {
-    public class FileManager : IFileManagerService
+    public class FileManager : IFileAddAndModifyService, IFileDeleteService
     {
         public static string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\Files\\"));
         public static string pathConfig = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\FIM\\FIMConfig.txt"));
@@ -44,7 +44,6 @@ namespace FileManagerService
             Console.WriteLine("Ime klijenta koji je pozvao metodu : " + windowsIdentity.Name);
             Console.WriteLine("Jedinstveni identifikator : " + windowsIdentity.User);
 
-
             if (File.Exists(GetFilePath(fileName)))
             {
                 File.Delete(GetFilePath(fileName));
@@ -58,7 +57,6 @@ namespace FileManagerService
         [PrincipalPermission(SecurityAction.Demand, Role = "Managment")]
         public void EditFile(string fileName, byte[] signature, string text)
         {
-
             IIdentity identity = Thread.CurrentPrincipal.Identity;
 
             Console.WriteLine("Tip autentifikacije : " + identity.AuthenticationType);
@@ -69,7 +67,6 @@ namespace FileManagerService
             Console.WriteLine("Jedinstveni identifikator : " + windowsIdentity.User);
 
             Console.WriteLine("Grupe korisnika:");
-            
 
             if (File.Exists(GetFilePath(fileName)))
             {

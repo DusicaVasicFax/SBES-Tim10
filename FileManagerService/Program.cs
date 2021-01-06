@@ -19,11 +19,23 @@ namespace FileManagerService
             host.AddServiceEndpoint(typeof(IFileAddAndModifyService), binding, address);
             host.AddServiceEndpoint(typeof(IFileDeleteService), binding, address);
 
-            host.Open();
-            Console.WriteLine("FileManagerService is opened. Press <enter> to finish...");
-            Console.ReadLine();
-
-            host.Close();
+            try
+            {
+                host.Open();
+                host.Open();
+                Console.WriteLine("FileManagerService is opened. Press <enter> to finish...");
+                Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong while starting FileManager service");
+                Console.WriteLine("[ERROR] {0}", e.Message);
+                Console.WriteLine("[StackTrace] {0}", e.StackTrace);
+            }
+            finally
+            {
+                host.Close();
+            }
         }
     }
 }

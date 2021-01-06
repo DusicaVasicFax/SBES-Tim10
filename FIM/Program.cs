@@ -49,45 +49,53 @@ namespace FIM
             X509Certificate2 srvCert = CertManager.GetCertificateFromStorage(StoreName.TrustedPeople, StoreLocation.LocalMachine, srvCertCN);
             EndpointAddress address = new EndpointAddress(new Uri("net.tcp://localhost:8888/IIPSService"),
                                       new X509CertificateEndpointIdentity(srvCert));
-
-            using (FIMClient proxy = new FIMClient(binding, address))
+            try
             {
-                while (true)
+                using (FIMClient proxy = new FIMClient(binding, address))
                 {
-                    if (!CheckIfConfigExists())
+                    while (true)
                     {
-                        Console.WriteLine("Config file not present! Exiting the program...");
-                        Console.ReadLine();
-                        Environment.Exit(42);
-                    }
-                    Console.WriteLine("Validation files...");
-                    List<string> filenames = File.ReadAllText(pathConfig).Split('\n').Select(x => x.Replace("\r", string.Empty)).Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
-
-                    FIMService service = new FIMService();
-
-                    filenames.ForEach(currentFilename =>
-                    {
-                        Alarm alarm = service.Check(currentFilename);
-                        if (alarm != null)
+                        if (!CheckIfConfigExists())
                         {
-                            switch (alarm.Risk)
-                            {
-                                case AuditEventTypes.Critical:
-                                    proxy.CriticalLog(alarm);
-                                    break;
-
-                                case AuditEventTypes.Information:
-                                    proxy.InformationLog(alarm);
-                                    break;
-
-                                case AuditEventTypes.Warning:
-                                    proxy.WarningLog(alarm);
-                                    break;
-                            }
+                            Console.WriteLine("Config file not present! Exiting the program...");
+                            Console.ReadLine();
+                            Environment.Exit(42);
                         }
-                    });
-                    Thread.Sleep(n);
+                        Console.WriteLine("Validation files...");
+                        List<string> filenames = File.ReadAllText(pathConfig).Split('\n').Select(x => x.Replace("\r", string.Empty)).Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
+
+                        FIMService service = new FIMService();
+
+                        filenames.ForEach(currentFilename =>
+                        {
+                            Alarm alarm = service.Check(currentFilename);
+                            if (alarm != null)
+                            {
+                                switch (alarm.Risk)
+                                {
+                                    case AuditEventTypes.Critical:
+                                        proxy.CriticalLog(alarm);
+                                        break;
+
+                                    case AuditEventTypes.Information:
+                                        proxy.InformationLog(alarm);
+                                        break;
+
+                                    case AuditEventTypes.Warning:
+                                        proxy.WarningLog(alarm);
+                                        break;
+                                }
+                            }
+                        });
+                        Thread.Sleep(n);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Something went wrong while starting FIM service");
+                Console.WriteLine("[ERROR] {0}", e.Message);
+                Console.WriteLine("[StackTrace] {0}", e.StackTrace);
             }
         }
 

@@ -61,7 +61,7 @@ namespace FIM
                             Console.ReadLine();
                             Environment.Exit(42);
                         }
-                        Console.WriteLine("Validation files...");
+                        Console.WriteLine("Validating files...");
                         List<string> filenames = File.ReadAllText(pathConfig).Split('\n').Select(x => x.Replace("\r", string.Empty)).Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
 
                         FIMService service = new FIMService();

@@ -22,7 +22,6 @@ namespace FileManagerService
             try
             {
                 host.Open();
-                host.Open();
                 Console.WriteLine("FileManagerService is opened. Press <enter> to finish...");
                 Console.ReadLine();
             }

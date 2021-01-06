@@ -20,13 +20,23 @@ namespace FIM
         {
             Console.ReadLine();
             if (!CheckIfConfigExists()) return;
-            Thread thread = new Thread(FimServiceFlow);
-            //thread.IsBackground = true;
+
+            int number = -1;
+            do
+            {
+                Console.WriteLine("Enter the number N used for the thread sleep function");
+                if (!int.TryParse(Console.ReadLine(), out number))
+                {
+                    number = -1;
+                }
+            }
+            while (number < 0);
+
+            Thread thread = new Thread(() => FimServiceFlow(number));
             thread.Start();
-            //TODO enter the number N that will put the thread to sleep
         }
 
-        private static void FimServiceFlow()
+        public static void FimServiceFlow(int n)
         {
             /// Define the expected service certificate. It is required to establish cmmunication using certificates.
             string srvCertCN = "ips";
@@ -43,9 +53,13 @@ namespace FIM
             {
                 while (true)
                 {
-                    if (!CheckIfConfigExists()) Environment.Exit(42);
-
-                    Console.WriteLine("Sleep now");
+                    if (!CheckIfConfigExists())
+                    {
+                        Console.WriteLine("Config file not present! Exiting the program...");
+                        Console.ReadLine();
+                        Environment.Exit(42);
+                    }
+                    Console.WriteLine("Validation files...");
                     List<string> filenames = File.ReadAllText(pathConfig).Split('\n').Select(x => x.Replace("\r", string.Empty)).Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
 
                     FIMService service = new FIMService();
@@ -71,7 +85,7 @@ namespace FIM
                             }
                         }
                     });
-                    Thread.Sleep(2000);
+                    Thread.Sleep(n);
                 }
             }
         }

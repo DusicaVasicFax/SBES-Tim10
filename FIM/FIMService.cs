@@ -23,9 +23,7 @@ namespace FIM
                StoreLocation.LocalMachine, "client_sign");
 
             var sign = File.ReadLines(path + filename);
-
             byte[] signature = Convert.FromBase64String(sign.Last());
-            //TODO cover multiline text instead of the first line
             try
             {
                 if (!DigitalSignature.Verify(sign.First(), HashAlgorithms.SHA1, signature, certificate))
@@ -33,20 +31,22 @@ namespace FIM
                     Console.WriteLine("Invalid signature");
                     return DetermineAuditType(filename);
                 }
+                return null;
             }
             catch (Exception e)
             {
                 Console.WriteLine("Invalid signature" + e.Message);
                 return DetermineAuditType(filename);
             }
-            return null;
         }
 
         private Alarm DetermineAuditType(string filename)
         {
             switch (ReadEventLog(filename))
             {
-                // PROGRAMERI BROJE OD 0
+                case -1:
+                    return null;
+
                 case 0:
                     return new Alarm(DateTime.Now, path, AuditEventTypes.Information, filename);
 
@@ -60,31 +60,30 @@ namespace FIM
 
         public int ReadEventLog(string filename)
         {
-            EventLog log = new EventLog();
-            log.Log = "SBES-PROJ-LOG";
-            int cnt = 0;
-
-            foreach (EventLogEntry entry in log.Entries)
+            try
             {
-                int pFrom = entry.Message.IndexOf("[");
-                int pTo = entry.Message.LastIndexOf("]");
-                string msg = entry.Message.Substring(pFrom + 1, pTo - pFrom - 1);
+                EventLog log = new EventLog();
+                log.Log = "SBES-PROJ-LOG";
+                int cnt = 0;
 
-                if (msg.Contains(filename))
+                foreach (EventLogEntry entry in log.Entries)
                 {
-                    cnt++;
-                }
-            }
-            return cnt;
+                    int pFrom = entry.Message.IndexOf("[");
+                    int pTo = entry.Message.LastIndexOf("]");
+                    string msg = entry.Message.Substring(pFrom + 1, pTo - pFrom - 1);
 
-            //eto nije jedna linija al je makar napredno
-            log.Entries.Cast<EventLogEntry>().Where(x =>
+                    if (msg.Contains(filename))
+                    {
+                        cnt++;
+                    }
+                }
+                return cnt;
+            }
+            catch (Exception e)
             {
-                int pFrom = x.Message.IndexOf("[");
-                int pTo = x.Message.LastIndexOf("]");
-                string msg = x.Message.Substring(pFrom + 1, pTo - pFrom - 1);
-                return msg.Contains(filename);
-            }).Count();
+                Console.WriteLine($"Reading event log failed {e.Message}");
+                return -1;
+            }
         }
     }
 }

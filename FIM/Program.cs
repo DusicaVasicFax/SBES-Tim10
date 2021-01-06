@@ -20,6 +20,7 @@ namespace FIM
         {
             Console.ReadLine();
             if (!CheckIfConfigExists()) return;
+            Console.WriteLine("FIM service is started.\n");
 
             int number = -1;
             do

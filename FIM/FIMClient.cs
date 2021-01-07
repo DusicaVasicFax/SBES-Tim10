@@ -18,14 +18,10 @@ namespace FIM
         public FIMClient(NetTcpBinding binding, EndpointAddress address)
             : base(binding, address)
         {
-            /// cltCertCN.SubjectName should be set to the client's username. .NET WindowsIdentity class provides information about Windows user running the given process
             string cltCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
-
             this.Credentials.ServiceCertificate.Authentication.CertificateValidationMode = System.ServiceModel.Security.X509CertificateValidationMode.Custom;
             this.Credentials.ServiceCertificate.Authentication.CustomCertificateValidator = new ClientCertValidator();
             this.Credentials.ServiceCertificate.Authentication.RevocationMode = X509RevocationMode.NoCheck;
-
-            /// Set appropriate client's certificate on the channel. Use CertManager class to obtain the certificate based on the "cltCertCN"
             this.Credentials.ClientCertificate.Certificate = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, cltCertCN);
 
             factory = this.CreateChannel();
@@ -33,17 +29,38 @@ namespace FIM
 
         public void CriticalLog(Alarm alarm)
         {
-            factory.CriticalLog(alarm);
+            try
+            {
+                factory.CriticalLog(alarm);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Something went wrong with the critical log {e.Message}");
+            }
         }
 
         public void InformationLog(Alarm alarm)
         {
-            factory.InformationLog(alarm);
+            try
+            {
+                factory.InformationLog(alarm);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Something went wrong with the information log {e.Message}");
+            }
         }
 
         public void WarningLog(Alarm alarm)
         {
-            factory.WarningLog(alarm);
+            try
+            {
+                factory.WarningLog(alarm);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Something went wrong with the warning log {e.Message}");
+            }
         }
 
         public void Dispose()

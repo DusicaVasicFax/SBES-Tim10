@@ -24,9 +24,13 @@ namespace IPSService
             {
                 factory.DeleteFile(fileName);
             }
+            catch (FaultException<FileOperationsException> e)
+            {
+                Console.WriteLine($"{e.Detail.Message}");
+            }
             catch (Exception e)
             {
-                Console.WriteLine("Error deleting file");
+                Console.WriteLine(e.Message);
             }
         }
     }

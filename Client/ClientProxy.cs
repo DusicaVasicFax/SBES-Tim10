@@ -17,11 +17,6 @@ namespace Client
 
         public ClientProxy(NetTcpBinding binding, EndpointAddress address) : base(binding, address)
         {
-            //string cltCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name);
-
-            //this.Credentials.ClientCertificate.Certificate =
-            //    CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, cltCertCN);
-
             factory = this.CreateChannel();
         }
 
@@ -30,11 +25,11 @@ namespace Client
             try
             {
                 factory.AddFile(fileName, signature, text);
+                Console.WriteLine("Successfully added file");
             }
             catch (FaultException<FileOperationsException> e)
             {
                 Console.WriteLine($"{e.Detail.Message}");
-                //Console.WriteLine($"Error while trying to add file: {fileName}");
             }
             catch (Exception e)
             {
@@ -47,6 +42,7 @@ namespace Client
             try
             {
                 factory.EditFile(fileName, signature, text);
+                Console.WriteLine("Successfully edited file");
             }
             catch (FaultException<FileOperationsException> e)
             {

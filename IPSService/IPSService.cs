@@ -5,12 +5,12 @@ using System.ServiceModel;
 
 namespace IPSService
 {
-    public class IPSService : IIPSService
+    public class IPSService : IIPSService, IDisposable
     {
-        public void CriticalLog(Alarm alarm)
+        private FileManagerProxy proxy;
+
+        public IPSService()
         {
-            Audit.CriticalLog(alarm);
-            Console.WriteLine("Critical");
             NetTcpBinding binding = new NetTcpBinding();
 
             string address = "net.tcp://localhost:9999/FileManager";
@@ -19,30 +19,43 @@ namespace IPSService
             binding.Security.Transport.ClientCredentialType = TcpClientCredentialType.Windows;
             binding.Security.Transport.ProtectionLevel = System.Net.Security.ProtectionLevel.EncryptAndSign;
 
-            Console.WriteLine("Korisnik koji je pokrenuo klijenta je : " + WindowsIdentity.GetCurrent().Name);
-
             EndpointAddress endpointAddress = new EndpointAddress(new Uri(address),
                 EndpointIdentity.CreateUpnIdentity("filemanager"));
 
-            FileManagerProxy proxy = new FileManagerProxy(binding, endpointAddress);
-            if (proxy == null || proxy.State != CommunicationState.Opened)
+            this.proxy = new FileManagerProxy(binding, endpointAddress);
+            if (this.proxy == null || this.proxy.State != CommunicationState.Opened)
             {
-                proxy.Open();
+                this.proxy.Open();
             }
-            proxy.DeleteFile(alarm.Filename);
-            proxy.Close();
+        }
+
+        public void CriticalLog(Alarm alarm)
+        {
+            Console.WriteLine("Critical");
+            Audit.CriticalLog(alarm);
+            this.proxy.DeleteFile(alarm.Filename);
+        }
+
+        public void Dispose()
+        {
+            if (this.proxy != null)
+            {
+                if (this.proxy.State != CommunicationState.Closed)
+                    this.proxy.Close();
+                this.proxy = null;
+            }
         }
 
         public void InformationLog(Alarm alarm)
         {
-            Audit.InformationLog(alarm);
             Console.WriteLine("Information");
+            Audit.InformationLog(alarm);
         }
 
         public void WarningLog(Alarm alarm)
         {
-            Audit.WarningLog(alarm);
             Console.WriteLine("Warning");
+            Audit.WarningLog(alarm);
         }
     }
 }

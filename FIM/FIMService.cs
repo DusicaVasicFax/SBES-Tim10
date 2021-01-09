@@ -23,9 +23,10 @@ namespace FIM
                StoreLocation.LocalMachine, "client_sign");
 
             var sign = File.ReadLines(path + filename);
-            byte[] signature = Convert.FromBase64String(sign.Last());
+           
             try
             {
+                byte[] signature = Convert.FromBase64String(sign.Last());
                 if (!DigitalSignature.Verify(sign.First(), HashAlgorithms.SHA1, signature, certificate))
                 {
                     Console.WriteLine("Invalid signature");

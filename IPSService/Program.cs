@@ -29,6 +29,7 @@ namespace IPSService
 
             host.Credentials.ServiceCertificate.Certificate = CertManager.GetCertificateFromStorage(StoreName.My, StoreLocation.LocalMachine, ipsCert);//autetntifikacija putem sertifikata
             IPSService iPSService = null;
+
             try
             {
                 host.Open();

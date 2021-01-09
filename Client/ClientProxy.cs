@@ -60,7 +60,6 @@ namespace Client
             {
                 factory = null;
             }
-
             this.Close();
         }
     }

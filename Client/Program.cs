@@ -16,7 +16,7 @@ namespace Client
         {
             NetTcpBinding binding = new NetTcpBinding();
             string address = "net.tcp://localhost:9999/FileManager";
-            string signCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name.ToLower()) + "_sign";
+            string signCertCN = Formatter.ParseName(WindowsIdentity.GetCurrent().Name.ToLower()) + "_sign"; //client_sign invalidUser_sign Client invalidUser
 
             Console.ReadLine();
             try

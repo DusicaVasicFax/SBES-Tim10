@@ -49,17 +49,20 @@ namespace FIM
                     {
                         if (!CheckIfConfigExists())
                         {
-                            Console.WriteLine("Config file not present! Exiting the program...");
+                            Console.WriteLine("No files present! Exiting the program...");
                             Console.ReadLine();
                             Environment.Exit(42);
                         }
 
-                        if (File.Exists(fimConfig))
+
+                        if (!Int32.TryParse(File.ReadAllText(fimConfig), out number))
                         {
-                         
-                            if (!Int32.TryParse(File.ReadAllText(fimConfig), out number))
-                                Environment.Exit(42);
-                        }    
+                            Console.WriteLine("Config file not present! Exiting the program...");
+                            Console.ReadLine();
+                            Environment.Exit(42);
+                        }
+                    
+
 
                         Console.WriteLine("Validating files...");
                         List<string> filenames = File.ReadAllText(pathConfig).Split('\n').Select(x => x.Replace("\r", string.Empty)).Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
@@ -101,12 +104,13 @@ namespace FIM
 
         private static bool CheckIfConfigExists()
         {
-            if (!File.Exists(pathConfig))
+            if (!File.Exists(pathConfig) || !File.Exists(fimConfig))
             {
                 Console.WriteLine("Cannot start fim without proper configuration file!");
                 Console.ReadLine();
                 return false;
             }
+
             return true;
         }
     }

@@ -5,3 +5,6 @@
 
 
 valid.txt
+fajl1.txt
+
+

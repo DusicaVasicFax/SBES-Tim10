@@ -14,7 +14,9 @@ namespace FIM
 {
     internal class Program
     {
-        public static string pathConfig = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "FIMConfig.txt"));
+        public static string pathConfig = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "FIMfiles.txt"));
+        public static string fimConfig = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "FIMConfig.txt"));
+        
 
         private static void Main(string[] args)
         {
@@ -22,22 +24,11 @@ namespace FIM
             if (!CheckIfConfigExists()) return;
             Console.WriteLine("FIM service is started.\n");
 
-            int number = -1;
-            do
-            {
-                Console.WriteLine("Enter the number N used for the thread sleep function");
-                if (!int.TryParse(Console.ReadLine(), out number))
-                {
-                    number = -1;
-                }
-            }
-            while (number < 0);
-
-            Thread thread = new Thread(() => FimServiceFlow(number));
+            Thread thread = new Thread(() => FimServiceFlow());
             thread.Start();
         }
 
-        public static void FimServiceFlow(int n)
+        public static void FimServiceFlow()
         {
             /// Define the expected service certificate. It is required to establish cmmunication using certificates.
             string srvCertCN = "ips";
@@ -51,6 +42,7 @@ namespace FIM
                                       new X509CertificateEndpointIdentity(srvCert));
             try
             {
+                int number = 0;
                 using (FIMClient proxy = new FIMClient(binding, address))
                 {
                     while (true)
@@ -61,6 +53,14 @@ namespace FIM
                             Console.ReadLine();
                             Environment.Exit(42);
                         }
+
+                        if (File.Exists(fimConfig))
+                        {
+                         
+                            if (!Int32.TryParse(File.ReadAllText(fimConfig), out number))
+                                Environment.Exit(42);
+                        }    
+
                         Console.WriteLine("Validating files...");
                         List<string> filenames = File.ReadAllText(pathConfig).Split('\n').Select(x => x.Replace("\r", string.Empty)).Where(x => !String.IsNullOrWhiteSpace(x)).ToList();
 
@@ -87,7 +87,7 @@ namespace FIM
                                 }
                             }
                         });
-                        Thread.Sleep(n);
+                        Thread.Sleep(number);
                     }
                 }
             }

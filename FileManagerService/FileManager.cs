@@ -15,7 +15,7 @@ namespace FileManagerService
     public class FileManager : IFileAddAndModifyService, IFileDeleteService
     {
         public static string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\Files\\"));
-        public static string pathConfig = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\FIM\\FIMConfig.txt"));
+        public static string pathConfig = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())), "..\\FIM\\FIMfiles.txt"));
 
         [PrincipalPermission(SecurityAction.Demand, Role = "Managment")]
         public void AddFile(string fileName, byte[] signature, string text)

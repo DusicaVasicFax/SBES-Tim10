@@ -23,6 +23,9 @@ namespace Client
             {
                 using (ClientProxy proxy = new ClientProxy(binding, new EndpointAddress(new Uri(address))))
                 {
+                    if (signCertCN == "invaliduser_sign")
+                        signCertCN = "invalidUser_sign";
+
                     X509Certificate2 clientCERT = CertManager.GetCertificateFromStorage(StoreName.My,
                     StoreLocation.LocalMachine, signCertCN);
                     Console.WriteLine("Connected to Services");
